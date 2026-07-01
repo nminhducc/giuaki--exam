@@ -58,14 +58,12 @@ const updatePost = async (req, res) => {
       });
     }
 
-    // Authorization: Chỉ cho phép người tạo bài post cập nhật bài post của chính họ
     if (post.userId !== req.user._id.toString()) {
       return res.status(403).json({
         message: "Bạn không có quyền chỉnh sửa bài post của người khác.",
       });
     }
 
-    // Cập nhật nội dung nếu có truyền
     if (content !== undefined) {
       post.content = content;
     }
@@ -77,7 +75,7 @@ const updatePost = async (req, res) => {
       post,
     });
   } catch (error) {
-    // Xử lý lỗi khi id không đúng định dạng ObjectId
+
     if (error.name === "CastError") {
       return res.status(400).json({
         message: "id bài post không hợp lệ.",
